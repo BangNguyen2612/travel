@@ -1,0 +1,252 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        * {
+	padding: 0;
+	margin: 0;
+	box-sizing: border-box;
+      }
+	html {
+	color: #333;
+	font-size: 62.5%;
+	font-family: "Open Sans", sans-serif;
+	}
+	.main {
+	background: #f1f1f1;
+	min-height: 100vh;
+	display: flex;
+	justify-content: center;
+	}
+	.form {
+	width: 360px;
+	min-height: 100px;
+	padding: 32px 24px;
+	text-align: center;
+	background: #fff;
+	border-radius: 2px;
+	margin: 24px;
+	align-self: center;
+	box-shadow: 0 2px 5px 0 rgba(51, 62, 73, 0.1);
+	}
+	.form .avatar {
+	width: 50px;
+	height: 50px;
+	margin: 0 auto;
+
+	}
+	.form .heading {
+	font-size: 2rem;
+	}
+	.form .desc {
+	text-align: center;
+	color: #636d77;
+	font-size: 1.6rem;
+	font-weight: lighter;
+	line-height: 2.4rem;
+	margin-top: 16px;
+	font-weight: 300;
+	}
+
+	.form-group {
+	display: flex;
+	margin-bottom: 16px;
+	flex-direction: column;
+	}
+
+	.form-label,
+	.form-message {
+	text-align: left;
+	}
+
+	.form-label {
+	font-weight: 700;
+	padding-bottom: 6px;
+	line-height: 1.8rem;
+	font-size: 1.4rem;
+	}
+
+	.form-control {
+	height: 40px;
+	padding: 8px 12px;
+	border: 1px solid #b3b3b3;
+	border-radius: 3px;
+	outline: none;
+	font-size: 1.4rem;
+	}
+
+	.form-control:hover {
+	border-color: #1dbfaf;
+	}
+
+	.form-group.invalid .form-control {
+	border-color: #f33a58;
+	}
+
+	.form-group.invalid .form-message {
+	color: #f33a58;
+	}
+
+	.form-message {
+	font-size: 1.2rem;
+	line-height: 1.6rem;
+	padding: 4px 0 0;
+	}
+
+	.form-submit {
+	outline: none;
+	background-color: #1dbfaf;
+	margin-top: 12px;
+	padding: 12px 16px;
+	font-weight: 600;
+	color: #fff;
+	border: none;
+	width: 100%;
+	font-size: 14px;
+	border-radius: 8px;
+	cursor: pointer;
+	}
+
+	.form-submit:hover {
+	background-color: #1ac7b6;
+	}
+
+	.spacer {
+	margin-top: 36px;
+	}
+    </style>
+</head>
+<body>
+
+
+
+<div class="main">
+
+    <form action="" class="form" id="form-1">
+      <h3 class="heading">Log in</h3>
+      <img src="logo1.jpg" alt="avatar" class="avatar" width="200px" height="200px">
+      
+      <div class="spacer"></div>
+      
+      <div class="form-group">
+        <label for="fullname" class="form-label">Tên đầy đủ</label>
+        <input id="fullname" name="fullname" type="text" placeholder="VD: Nguyễn Văn A" class="form-control">
+        <span class="form-message"></span>
+      </div>
+      
+      <div class="form-group">
+        <label for="email" class="form-label">Email</label>
+        <input id="email" name="email" type="text" placeholder="VD: email@domain.com" class="form-control">
+        <span class="form-message"></span>
+      </div>
+      
+      <div class="form-group">
+        <label for="password" class="form-label">Mật khẩu</label>
+        <input id="password" name="password" type="password" placeholder="Nhập mật khẩu" class="form-control">
+        <span class="form-message"></span>
+      </div>
+      
+      <div class="form-group">
+        <label for="password_confirmation" class="form-label">Nhập lại mật khẩu</label>
+        <input id="password_confirmation" name="password_confirmation" placeholder="Nhập lại mật khẩu" type="password" class="form-control">
+        <span class="form-message"></span>
+      </div>
+      
+      <button class="form-submit" >Đăng ký</button>
+    </form>
+      </div>
+	  <script>
+		//Tạo thông báo khi người dùng nhập lỗi form
+		var form = document.getElementById('form-1');
+		form.addEventListener('submit', function(e){
+			e.preventDefault();//Không thực hiện submit form
+			var fullname = document.getElementById('fullname');
+			var email = document.getElementById('email');
+			var password = document.getElementById('password');
+			var password_confirmation = document.getElementById('password_confirmation');
+			var fullname_message = document.getElementsByClassName('form-message')[0];
+			var email_message = document.getElementsByClassName('form-message')[1];
+			var password_message = document.getElementsByClassName('form-message')[2];
+			var password_confirmation_message = document.getElementsByClassName('form-message')[3];
+			var fullname_value = fullname.value;
+			var email_value = email.value;
+			var password_value = password.value;
+			var password_confirmation_value = password_confirmation.value;
+			var fullname_pattern = /^[a-zA-Z ]{2,30}$/;
+			var email_pattern = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/;
+			var password_pattern = /^[A-Za-z]\w{7,14}$/;
+			var password_confirmation_pattern = /^[A-Za-z]\w{7,14}$/;
+			if(fullname_value.trim() == ''){
+//Phương trim()thức loại bỏ khoảng trắng từ cả hai bên của một chuỗi.
+				fullname_message.innerHTML = 'Tên đầy đủ không được để trống';
+				fullname_message.style.color = 'red';
+			}
+			else if(!fullname_pattern.test(fullname_value)){
+				fullname_message.innerHTML = 'Tên đầy đủ không hợp lệ';
+				fullname_message.style.color = 'red';
+			}
+			else{
+				fullname_message.innerHTML = 'Tên đầy đủ hợp lệ';
+				fullname_message.style.color = 'green';
+			}
+			if(email_value.trim() == ''){
+				email_message.innerHTML = 'Email không được để trống';
+				email_message.style.color = 'red';
+			}
+			else if(!email_pattern.test(email_value)){
+				email_message.innerHTML = 'Email không hợp lệ';
+				email_message.style.color = 'red';
+			}
+			else{
+				email_message.innerHTML = 'Email hợp lệ';
+				email_message.style.color = 'green';
+			}
+			if(password_value.trim() == ''){
+				password_message.innerHTML = 'Mật khẩu không được để trống';
+				password_message.style.color = 'red';
+			}
+			else if(!password_pattern.test(password_value)){
+				password_message.innerHTML = 'Mật khẩu không hợp lệ';
+				password_message.style.color = 'red';
+			}
+			else{
+				password_message.innerHTML = 'Mật khẩu hợp lệ';
+				password_message.style.color = 'green';
+			}
+			if(password_confirmation_value.trim() == ''){
+				password_confirmation_message.innerHTML = 'Nhập lại mật khẩu không được để trống';
+				password_confirmation_message.style.color = 'red';
+			}
+			else if(!password_confirmation_pattern.test(password_confirmation_value)){
+				password_confirmation_message.innerHTML = 'Nhập lại mật khẩu không hợp lệ';
+				password_confirmation_message.style.color = 'red';
+			}
+			else if(password_value != password_confirmation_value){
+				password_confirmation_message.innerHTML = 'Nhập lại mật khẩu không chính xác';
+				password_confirmation_message.style.color = 'red';
+			}
+			else{
+				password_confirmation_message.innerHTML = 'Nhập lại mật khẩu hợp lệ';
+				password_confirmation_message.style.color = 'green';
+			}
+			if(fullname_message.style.color == 'green' && email_message.style.color == 'green' && password_message.style.color == 'green' && password_confirmation_message.style.color == 'green'){
+				form.submit();
+				alert('Đăng ký thành công');
+				window.location.href = 'index.html';
+
+			} 
+		});
+	
+
+	</script>
+</body>
+ </html>
+
+
+
+
+ 
